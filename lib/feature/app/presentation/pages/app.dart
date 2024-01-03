@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import'package:lingo_learn/feature/splash&onboarding/page/splash_page.dart';
 import 'package:lingo_learn/services/language_service.dart';
 import '../../../../common/constants/constants.dart';
 import '../../../../core/config/theme/app_theme.dart';
@@ -26,6 +27,7 @@ class App extends StatelessWidget {
               return MaterialApp(
                 title: "Lingo Learn",
                 debugShowCheckedModeBanner: false,
+                home:SplashPage(),
                 theme: AppTheme.dark(context),
                 locale: context.locale,
                 localizationsDelegates: context.localizationDelegates,
