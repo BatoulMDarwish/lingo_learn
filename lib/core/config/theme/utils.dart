@@ -4,7 +4,7 @@ ElevatedButtonThemeData _elevatedButtonTheme(
     ColorScheme scheme, TextTheme textTheme) =>
     ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        textStyle: textTheme.titleLarge?.b,
+        textStyle: textTheme.titleLarge.b,
         backgroundColor: scheme.primary,
         foregroundColor: scheme.onPrimary,
         disabledBackgroundColor: scheme.onSurface,

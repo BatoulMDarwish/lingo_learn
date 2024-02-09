@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:lingo_learn/core/utils/extensions/build_context.dart';
+import 'package:lingo_learn/feature/splash&onboarding/page/onboarding.dart';
 import'package:lingo_learn/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,14 +20,14 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
 
-  // @override
-  // void initState() {
-  //   Future.delayed(
-  //     const Duration(seconds: 4),
-  //         () => navigate(),
-  //   );
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    Future.delayed(
+      const Duration(seconds: 4),
+          () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OnBoardingScreen(),)),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

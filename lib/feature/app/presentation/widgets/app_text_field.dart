@@ -14,21 +14,21 @@ import 'app_text.dart';
 
 class AppTextField<T> extends StatefulWidget {
   const AppTextField( {
-    Key? key,
+    super.key,
     required this.name,
     this.controller,
     this.onTap,
     this.onEditingComplete,
     this.onChange,
-    this.onSubmitted,
+    this.onFieldSubmitted,
     this.onSaved,
     this.maxLines,
     this.minLines,
     this.maxLength,
     this.enabled = true,
     this.textInputType,
-    this.textInputAction,
-    this.textDirection=TextDirection.rtl,
+    this.textInputAction = TextInputAction.next,
+    this.textDirection,
     this.validator,
     this.maxLengthEnforcement,
     this.focusNode,
@@ -61,6 +61,7 @@ class AppTextField<T> extends StatefulWidget {
     this.contextMenuBuilder = _defaultContextMenuBuilder,
     this.borderSideColor,
     this.filled,
+    this.onSubmitted,
     this.fillColor,
     this.labelTextStyle,
     this.translateHint = true,
@@ -72,24 +73,22 @@ class AppTextField<T> extends StatefulWidget {
     this.prefixBoxConstraints,
     this.initValue,
     this.valueTransformer,
-    this.x=true,
     this.prefix,
-  }) : super(key: key);
+  });
 
   final TextEditingController? controller;
   final void Function()? onTap;
   final void Function()? onEditingComplete;
   final void Function(String? val)? onChange;
-  final void Function(String?)? onSubmitted;
+  final void Function(String val)? onFieldSubmitted;
   final void Function(String? val)? onSaved;
   final int? maxLines;
   final int? minLines;
   final int? maxLength;
-  final bool x;
   final bool enabled;
   final TextInputType? textInputType;
   final TextInputAction? textInputAction;
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
   final FormFieldValidator<String?>? validator;
   final MaxLengthEnforcement? maxLengthEnforcement;
   final FocusNode? focusNode;
@@ -97,6 +96,7 @@ class AppTextField<T> extends StatefulWidget {
   final ScrollPhysics? scrollPhysics;
   final ScrollController? scrollController;
   final String? initialValue;
+  final void Function(String?)? onSubmitted;
   final Brightness? keyboardAppearance;
   final TextAlignVertical? textAlignVertical;
   final TextCapitalization textCapitalization;
@@ -187,13 +187,12 @@ class _AppTextFieldState extends State<AppTextField> {
                 enabled: widget.enabled,
                 keyboardType: widget.textInputType,
                 textInputAction: widget.textInputAction,
-                textDirection: widget.x?widget.textDirection:TextDirection.ltr,
+                textDirection: widget.textDirection,
                 scrollPadding: widget.scrollPadding,
                 expands: widget.expands,
-                onSubmitted: (widget.onSubmitted),
                 maxLengthEnforcement: widget.maxLengthEnforcement,
                 focusNode: widget.focusNode,
-                obscureText: obscureValue,
+                obscureText:widget.obscure? obscureValue: false,
                 obscuringCharacter: widget.obscuringCharacter,
                 autovalidateMode: widget.autoValidateMode,
                 readOnly: widget.readOnly,
@@ -206,16 +205,15 @@ class _AppTextFieldState extends State<AppTextField> {
                 textAlignVertical: widget.textAlignVertical,
                 textCapitalization: widget.textCapitalization,
                 contextMenuBuilder: widget.contextMenuBuilder,
-
                 inputFormatters: [
                   if (widget.maxLength != null) LengthLimitingTextInputFormatter(widget.maxLength),
-                  if (widget.textInputType == TextInputType.phone || widget.textInputType == TextInputType.number) ...[
+                  if (widget.textInputType == TextInputType.phone/* || widget.textInputType == TextInputType.number*/) ...[
                     FilteringTextInputFormatter.allow(RegExp("[0-9]")),
                   ],
                   ...?widget.inputFormatters
                 ],
                 style: widget.textStyle ??
-                    context.textTheme.titleSmall?.r?.copyWith(
+                    context.textTheme.titleLarge?.r?.copyWith(
                       color: context.colorScheme.onBackground,
                       decoration: TextDecoration.none,
                       decorationColor: context.colorScheme.borderTextField,
@@ -274,12 +272,12 @@ class _AppTextFieldState extends State<AppTextField> {
                   suffix: widget.suffix,
                   hintText: widget.translateHint ? widget.hintText?.tr() : widget.hintText,
                   hintStyle:
-                      widget.hintTextStyle ?? context.textTheme.bodyMedium.r?.withColor(context.colorScheme.grey500),
-
+                  widget.hintTextStyle ?? context.textTheme.bodyMedium.r?.withColor(context.colorScheme.grey500),
                   labelText: widget.translateLabel ? widget.labelText?.tr() : widget.labelText,
                   labelStyle:
-                      widget.labelTextStyle ?? context.textTheme.bodyMedium?.withColor(context.colorScheme.hint),
+                  widget.labelTextStyle ?? context.textTheme.bodyMedium?.withColor(context.colorScheme.hint),
                 ),
+                onSubmitted: (widget.onSubmitted),
               );
             }),
       ],
@@ -289,7 +287,7 @@ class _AppTextFieldState extends State<AppTextField> {
   Widget eyeIcon(bool obscure) {
     return IconButton(
       onPressed: () => obscureNotifier.value = !obscure,
-      icon: Icon(obscure ? CupertinoIcons.eye_slash : CupertinoIcons.eye, color: context.colorScheme.primary),
+      icon: Icon(obscure ? CupertinoIcons.eye : CupertinoIcons.eye_slash, color: context.colorScheme.primary),
     );
   }
 }

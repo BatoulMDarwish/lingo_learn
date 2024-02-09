@@ -51,7 +51,7 @@ abstract class _FontSize {
   static const double _headlineSmallFontSize = 24;
 
   static double get titleLarge => _titleLargeFontSize.sp;
-  static const double _titleLargeFontSize = 22;
+  static const double _titleLargeFontSize = 20;
 
   static double get titleMedium => _titleMediumFontSize.sp;
   static const double _titleMediumFontSize = 16;
