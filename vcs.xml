@@ -10,9 +10,17 @@
           <option name="url" value="https://github.com/flutter/flutter.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="git@github.com:BatoulMDarwish/lingo_learn.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/BatoulMDarwish/lingo_learn.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="C:\Users\HP\AndroidStudioProjects" />
+    <option name="cloneParentDir" value="C:\Users\HP\Desktop" />
   </component>
   <component name="Vcs.Log.App.Settings">
     <option name="COLUMN_ID_ORDER">
